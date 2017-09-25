@@ -6,12 +6,32 @@ using UnityEngine;
 public class CarBehavior : MonoBehaviour
 {
     [SerializeField]
-    private float initialSpeed = 10;
+    private PowerUpsHolderObject powerUps;
+    [SerializeField]
+    private Transform missileLauncher;
+    private SpecialPower myPowerUp;
+    [SerializeField]
+    private float initialSpeed;
     private float currentSpeed;
     [SerializeField]
-    private float rotationSpeed = 100;
-    private SpecialPower myPowerUp;
+    private float rotationSpeed;
+
+    public PowerUpsHolderObject PowerUps { get { return powerUps; } }
+    public Transform MissileLauncher { get { return missileLauncher; } }
     public int Position { get; private set; }
+
+    internal Vector3 GetLauncherPosition()
+    {
+        return missileLauncher.position;
+    }
+    internal Quaternion GetLauncherRotation()
+    {
+        return missileLauncher.transform.rotation;
+    }
+    internal Transform GetPowerUp(int powerUp)
+    {
+        return PowerUps.powerUps[powerUp];
+    }
 
     internal void ChangeSpeed(double multiplier, double duration)
     {
@@ -21,6 +41,7 @@ public class CarBehavior : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //PowerUps = PowerUpsHolderObject.GetInstance();
         Position = 1;
         currentSpeed = initialSpeed;
     }
