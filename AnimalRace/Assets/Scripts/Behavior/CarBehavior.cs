@@ -13,8 +13,10 @@ public class CarBehavior : MonoBehaviour
     [SerializeField]
     private float initialSpeed;
     private float currentSpeed;
+
     [SerializeField]
     private float rotationSpeed;
+    private List<AbnormalStatus> abnormalStatuses = new List<AbnormalStatus>();
 
     public PowerUpsHolderObject PowerUps { get { return powerUps; } }
     public Transform MissileLauncher { get { return missileLauncher; } }
@@ -33,15 +35,25 @@ public class CarBehavior : MonoBehaviour
         return PowerUps.powerUps[powerUp];
     }
 
-    internal void ChangeSpeed(double multiplier, double duration)
+    internal void RemoveAbnormalStatus(Turbo turbo)
     {
-        throw new NotImplementedException();
+        abnormalStatuses.Remove(turbo);
+    }
+
+    internal void AddAbnormalStatus(Turbo turbo)
+    {
+        abnormalStatuses.Add(turbo);
+    }
+
+    internal void ChangeSpeed(float multiplier)
+    {
+        //deberia cappear esto usando initial speed o dejo que sea posible stackear turbos?
+        currentSpeed *= multiplier;
     }
 
     // Use this for initialization
     void Start()
     {
-        //PowerUps = PowerUpsHolderObject.GetInstance();
         Position = 1;
         currentSpeed = initialSpeed;
     }
@@ -52,7 +64,21 @@ public class CarBehavior : MonoBehaviour
         MoveForward();
         TurnSideways();
         //Jump();
+        ReduceAbnormalStatusTime();
         FireSpecialPower();
+    }
+
+    private void ReduceAbnormalStatusTime()
+    {
+        for (var i=0; i<abnormalStatuses.Count; i++)
+        {
+            AbnormalStatus status = abnormalStatuses[i];
+            status.ReduceTime(Time.deltaTime);
+            if(status.Duration <= 0)
+            {
+                status.Deactivate(this);
+            }
+        }
     }
 
     private void FireSpecialPower()

@@ -6,15 +6,6 @@ using UnityEngine;
 public class PowerUpsHolderObject : ScriptableObject
 {
     public Transform[] powerUps;
-    private static PowerUpsHolderObject instance;
     internal static readonly int MISSILE_POSITION = 0;
-
-    public static PowerUpsHolderObject GetInstance()
-    {
-        if(instance == null)
-        {
-            instance = CreateInstance<PowerUpsHolderObject>();
-        }
-        return instance;
-    }
+    internal static readonly int TURBO_POSITION = 1;
 }
