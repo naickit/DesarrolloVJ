@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class CarBehavior : MonoBehaviour
 {
-    [SerializeField]
+    //[SerializeField]
     private PowerUpsHolderObject powerUps;
-    [SerializeField]
+    //[SerializeField]
     private Transform missileLauncher;
     private SpecialPower myPowerUp;
-    [SerializeField]
-    private float initialSpeed;
     private float currentSpeed;
+    [SerializeField]
+    private float maxSpeed;
+    [SerializeField]
+    private float aceleration;
+    [SerializeField]
+    private float reverseMaxSpeed;
 
     [SerializeField]
     private float rotationSpeed;
@@ -22,6 +26,79 @@ public class CarBehavior : MonoBehaviour
     public Transform MissileLauncher { get { return missileLauncher; } }
     public int Position { get; private set; }
 
+    // Use this for initialization
+    void Start()
+    {
+        Position = 1;
+        currentSpeed = 0;
+        maxSpeed = 20;
+        aceleration = 2;
+        reverseMaxSpeed = -10;
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        MoveForward();
+        if (currentSpeed != 0)
+            TurnSideways();
+        //Jump();
+        ReduceAbnormalStatusTime();
+        FireSpecialPower();
+    }
+
+    #region relacionado al movimiento
+
+    private void Jump()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void TurnSideways()
+    {
+        transform.Rotate(transform.up * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
+    }
+
+    private void MoveForward()
+    {
+        if (Input.GetAxis("Vertical") > 0)
+        {
+            ChangeSpeed(aceleration);
+            transform.position += transform.forward * currentSpeed * Time.deltaTime;
+        }
+        if (Input.GetAxis("Vertical") == 0 && currentSpeed > 0)
+        {
+            ChangeSpeed(-aceleration);
+            transform.position += transform.forward * currentSpeed * Time.deltaTime;
+        }
+
+        if (Input.GetAxis("Vertical") < 0)
+        {
+            ChangeSpeed(-aceleration);
+            transform.position += transform.forward * currentSpeed * Time.deltaTime;
+        }
+        if (Input.GetAxis("Vertical") == 0 && currentSpeed < 0)
+        {
+            ChangeSpeed(+aceleration);
+            transform.position += transform.forward * currentSpeed * Time.deltaTime;
+        }
+    }
+
+    internal void ChangeSpeed(float aceleration)
+    {
+        if (currentSpeed <= maxSpeed)
+        {
+            currentSpeed += aceleration;
+        }
+        if (currentSpeed > maxSpeed)
+            currentSpeed = maxSpeed;
+        if (currentSpeed < reverseMaxSpeed)
+            currentSpeed = reverseMaxSpeed;
+    }
+    #endregion
+
+    #region PowerUps
     internal Vector3 GetLauncherPosition()
     {
         return missileLauncher.position;
@@ -45,36 +122,14 @@ public class CarBehavior : MonoBehaviour
         abnormalStatuses.Add(turbo);
     }
 
-    internal void ChangeSpeed(float multiplier)
-    {
-        //deberia cappear esto usando initial speed o dejo que sea posible stackear turbos?
-        currentSpeed *= multiplier;
-    }
-
-    // Use this for initialization
-    void Start()
-    {
-        Position = 1;
-        currentSpeed = initialSpeed;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        MoveForward();
-        TurnSideways();
-        //Jump();
-        ReduceAbnormalStatusTime();
-        FireSpecialPower();
-    }
 
     private void ReduceAbnormalStatusTime()
     {
-        for (var i=0; i<abnormalStatuses.Count; i++)
+        for (var i = 0; i < abnormalStatuses.Count; i++)
         {
             AbnormalStatus status = abnormalStatuses[i];
             status.ReduceTime(Time.deltaTime);
-            if(status.Duration <= 0)
+            if (status.Duration <= 0)
             {
                 status.Deactivate(this);
             }
@@ -91,21 +146,6 @@ public class CarBehavior : MonoBehaviour
                 myPowerUp = null;
             }
         }
-    }
-
-    private void Jump()
-    {
-        throw new NotImplementedException();
-    }
-
-    private void TurnSideways()
-    {
-        transform.Rotate(transform.up * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
-    }
-
-    private void MoveForward()
-    {
-        transform.position += transform.forward * currentSpeed * Time.deltaTime * Input.GetAxis("Vertical");
     }
 
     void OnTriggerEnter(Collider otherObject)
@@ -158,4 +198,5 @@ public class CarBehavior : MonoBehaviour
     {
         Destroy(otherObject.gameObject);
     }
+    #endregion
 }
