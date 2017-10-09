@@ -17,6 +17,8 @@ public class CarBehavior : MonoBehaviour
     private float aceleration;
     [SerializeField]
     private float reverseMaxSpeed;
+    [SerializeField]
+    private Vector3 impulseForce;
 
     [SerializeField]
     private float rotationSpeed;
@@ -34,6 +36,7 @@ public class CarBehavior : MonoBehaviour
         maxSpeed = 20;
         aceleration = 2;
         reverseMaxSpeed = -10;
+        impulseForce.Set(0, 0, 0);
 
     }
 
@@ -46,6 +49,22 @@ public class CarBehavior : MonoBehaviour
         //Jump();
         ReduceAbnormalStatusTime();
         FireSpecialPower();
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+
+        if (col.gameObject.tag == "Car")
+        {
+            Vector3 collForce = transform.forward * currentSpeed / 2;
+            impulseForce.Set(collForce.x, 0, collForce.z);
+            col.rigidbody.velocity = Vector3.zero;
+            col.rigidbody.angularVelocity = Vector3.zero;
+            col.rigidbody.AddForce(impulseForce*2, ForceMode.Impulse);
+            this.gameObject.GetComponent<Rigidbody>().AddForce(-impulseForce*2, ForceMode.Impulse); //sacar cuando se agregen mas autos
+        }
+
+
     }
 
     #region relacionado al movimiento
