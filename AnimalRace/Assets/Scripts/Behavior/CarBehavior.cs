@@ -27,7 +27,8 @@ public class CarBehavior : MonoBehaviour
     public PowerUpsHolderObject PowerUps { get { return powerUps; } }
     public Transform MissileLauncher { get { return missileLauncher; } }
     public int Position { get; private set; }
-
+    public string HorizontalMovement;
+    public string VerticalMovement;
     // Use this for initialization
     void Start()
     {
@@ -61,7 +62,7 @@ public class CarBehavior : MonoBehaviour
             col.rigidbody.velocity = Vector3.zero;
             col.rigidbody.angularVelocity = Vector3.zero;
             col.rigidbody.AddForce(impulseForce*2, ForceMode.Impulse);
-            this.gameObject.GetComponent<Rigidbody>().AddForce(-impulseForce*2, ForceMode.Impulse); //sacar cuando se agregen mas autos
+            this.gameObject.GetComponent<Rigidbody>().AddForce(-impulseForce*2, ForceMode.Impulse); 
         }
 
 
@@ -76,28 +77,28 @@ public class CarBehavior : MonoBehaviour
 
     private void TurnSideways()
     {
-        transform.Rotate(transform.up * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
+        transform.Rotate(transform.up * rotationSpeed * Time.deltaTime * Input.GetAxis(HorizontalMovement));
     }
 
     private void MoveForward()
     {
-        if (Input.GetAxis("Vertical") > 0)
+        if (Input.GetAxis(VerticalMovement) > 0)
         {
             ChangeSpeed(aceleration);
             transform.position += transform.forward * currentSpeed * Time.deltaTime;
         }
-        if (Input.GetAxis("Vertical") == 0 && currentSpeed > 0)
+        if (Input.GetAxis(VerticalMovement) == 0 && currentSpeed > 0)
         {
             ChangeSpeed(-aceleration);
             transform.position += transform.forward * currentSpeed * Time.deltaTime;
         }
 
-        if (Input.GetAxis("Vertical") < 0)
+        if (Input.GetAxis(VerticalMovement) < 0)
         {
             ChangeSpeed(-aceleration);
             transform.position += transform.forward * currentSpeed * Time.deltaTime;
         }
-        if (Input.GetAxis("Vertical") == 0 && currentSpeed < 0)
+        if (Input.GetAxis(VerticalMovement) == 0 && currentSpeed < 0)
         {
             ChangeSpeed(+aceleration);
             transform.position += transform.forward * currentSpeed * Time.deltaTime;
