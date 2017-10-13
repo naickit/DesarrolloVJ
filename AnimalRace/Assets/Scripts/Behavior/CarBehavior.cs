@@ -65,6 +65,11 @@ public class CarBehavior : MonoBehaviour
             this.gameObject.GetComponent<Rigidbody>().AddForce(-impulseForce*2, ForceMode.Impulse); 
         }
 
+        //if(col.gameObject.tag == "Track")
+        //{
+        //    this.gameObject.GetComponent<Rigidbody>().AddForce(0,-20,0, ForceMode.Impulse);
+        //}
+
 
     }
 
