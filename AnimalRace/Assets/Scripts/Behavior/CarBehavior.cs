@@ -50,19 +50,8 @@ public class CarBehavior : MonoBehaviour
         MoveForward();
         if (currentSpeed != 0)
             TurnSideways();
-        //Jump();
         ReduceAbnormalStatusTime();
         FireSpecialPower();
-        GetComponent<Rigidbody>().AddForce(-transform.up * 100); //Empujar hacia abajo para que no haga salito
-        //RaycastHit hit = new RaycastHit();
-        //if (Physics.Raycast(transform.position, -Vector3.up, out hit))
-        //{
-        //    var distanceToGround = hit.distance;
-        //    if(distanceToGround > 0)
-        //    {
-        //        print(distanceToGround);
-        //    }
-        //}
 
     }
 
@@ -76,37 +65,21 @@ public class CarBehavior : MonoBehaviour
         GetComponentInChildren<Camera>().fieldOfView = fieldOfView;
     }
 
-    //void FixedUpdate()
-    //{
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(transform.position, -transform.up, 5, 5))
-    //    {
-    //        GetComponent<Rigidbody>().AddForce(transform.up * (10 / (hit.distance / 2)));
-    //    }
-    //}
-
     void OnCollisionEnter(Collision col)
     {
 
         if (col.gameObject.tag == "Car")
         {
-            //col.rigidbody.useGravity = false;
-            //this.gameObject.GetComponent<Rigidbody>().useGravity = false;
-            Vector3 collForce = transform.forward * currentSpeed / 2;
-            impulseForce.Set(collForce.x, 0, collForce.z);
-            col.rigidbody.velocity = Vector3.zero;
-            col.rigidbody.angularVelocity = Vector3.zero;
-            col.rigidbody.AddForce(impulseForce*3, ForceMode.Impulse);
-            gameObject.GetComponent<Rigidbody>().AddForce(-impulseForce*3, ForceMode.Impulse);
-            //this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            col.rigidbody.freezeRotation = true;
         }
+    }
 
-        //if(col.gameObject.tag == "Track")
-        //{
-        //    this.gameObject.GetComponent<Rigidbody>().AddForce(0,-20,0, ForceMode.Impulse);
-        //}
-
-
+    void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.tag == "Car")
+        {
+            col.rigidbody.freezeRotation = false;
+        }
     }
 
     #region relacionado al movimiento
