@@ -85,6 +85,7 @@
     <Compile Include="Assets\Scripts\DataAccess\PowerUpsHolderObject.cs" />
     <Compile Include="Assets\Scripts\Domain\AbnormalStatus.cs" />
     <Compile Include="Assets\Scripts\Domain\Missile.cs" />
+    <Compile Include="Assets\Scripts\Domain\MissileCollisionStatus.cs" />
     <Compile Include="Assets\Scripts\Domain\SpecialPower.cs" />
     <Compile Include="Assets\Scripts\Domain\SpecialPowerBuilder.cs" />
     <Compile Include="Assets\Scripts\Domain\Turbo.cs" />

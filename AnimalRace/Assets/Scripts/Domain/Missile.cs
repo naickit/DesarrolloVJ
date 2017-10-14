@@ -5,12 +5,13 @@ internal class Missile : SpecialPower
 {
     internal override void Activate(CarBehavior car)
     {
-        Transform missile = car.GetPowerUp(PowerUpsHolderObject.MISSILE_POSITION);
+        Transform missileHax = car.GetPowerUp(PowerUpsHolderObject.MISSILE_POSITION);
+        Transform missile = missileHax.GetChild(0);
         float missileLengthHorizontally = missile.GetComponent<Renderer>().bounds.extents.z;
         Vector3 missilePosition = car.GetLauncherPosition() + (car.transform.forward * missileLengthHorizontally);
         Object.Instantiate(
-            missile,
-            missilePosition, 
-            car.GetLauncherRotation());
+            missileHax,
+            missilePosition,
+            car.GetLauncherRotation());//missileHax.rotation);
     }
 }
