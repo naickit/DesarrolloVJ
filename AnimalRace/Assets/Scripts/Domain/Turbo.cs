@@ -20,14 +20,12 @@ internal class Turbo : SpecialPower, AbnormalStatus
         remainingDuration = TURBO_DURATION;
         car.AddAbnormalStatus(this);
         car.ChangeMaxSpeed(TURBO_MULTIPLIER);
-        car.ChangeSpeed(TURBO_MULTIPLIER);
     }
 
     void AbnormalStatus.Deactivate(CarBehavior car)
     {
         car.RemoveAbnormalStatus(this);
         car.ChangeMaxSpeed(1/TURBO_MULTIPLIER);
-        car.ChangeSpeed(-TURBO_MULTIPLIER);
     }
 
     void AbnormalStatus.ReduceTime(float deltaTime)

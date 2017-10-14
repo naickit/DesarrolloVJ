@@ -6,6 +6,7 @@ public class MissileBehavior : MonoBehaviour
 {
     [SerializeField]
     private float speed;
+    private MissileCollisionStatus collisionLogic = new MissileCollisionStatus();
     // Use this for initialization
     void Start()
     {
@@ -16,5 +17,18 @@ public class MissileBehavior : MonoBehaviour
     void Update()
     {
         transform.position += transform.forward * speed * Time.deltaTime;
+    }
+
+    void OnCollisionEnter(Collision collisioned)
+    {
+        if (collisioned.gameObject.tag == "Car")
+        {
+            CarBehavior car = collisioned.gameObject.GetComponent<CarBehavior>();
+            MissileCollisionStatus status = new MissileCollisionStatus();
+            status.Activate(car);
+            car.AddAbnormalStatus(status);
+        }
+        Destroy(gameObject);
+
     }
 }

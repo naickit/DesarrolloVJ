@@ -46,7 +46,6 @@ public class CarBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateCameraPosition();
         MoveForward();
         if (currentSpeed != 0)
             TurnSideways();
@@ -65,12 +64,13 @@ public class CarBehavior : MonoBehaviour
         GetComponentInChildren<Camera>().fieldOfView = fieldOfView;
     }
 
-    void OnCollisionEnter(Collision col)
+
+    void OnCollisionEnter(Collision collisioned)
     {
 
-        if (col.gameObject.tag == "Car")
+        if (collisioned.gameObject.tag == "Car")
         {
-            col.rigidbody.freezeRotation = true;
+            collisioned.rigidbody.freezeRotation = true;
         }
     }
 
@@ -97,12 +97,14 @@ public class CarBehavior : MonoBehaviour
     public void ChangeMaxSpeed(float multiplier)
     {
         maxSpeed *= multiplier;
+        reverseMaxSpeed *= multiplier;
     }
 
     private void MoveForward()
     {
         if (Input.GetAxis(VerticalMovement) > 0)
         {
+            UpdateCameraPosition();
             ChangeSpeed(aceleration);
             transform.position += transform.forward * currentSpeed * Time.deltaTime;
         }
@@ -124,11 +126,11 @@ public class CarBehavior : MonoBehaviour
         }
     }
 
-    internal void ChangeSpeed(float aceleration)
+    internal void ChangeSpeed(float acceleration)
     {
         if (currentSpeed <= maxSpeed)
         {
-            currentSpeed += aceleration;
+            currentSpeed += acceleration;
         }
         if (currentSpeed > maxSpeed)
             currentSpeed = maxSpeed;
@@ -151,14 +153,14 @@ public class CarBehavior : MonoBehaviour
         return PowerUps.powerUps[powerUp];
     }
 
-    internal void RemoveAbnormalStatus(Turbo turbo)
+    internal void RemoveAbnormalStatus(AbnormalStatus status)
     {
-        abnormalStatuses.Remove(turbo);
+        abnormalStatuses.Remove(status);
     }
 
-    internal void AddAbnormalStatus(Turbo turbo)
+    internal void AddAbnormalStatus(AbnormalStatus status)
     {
-        abnormalStatuses.Add(turbo);
+        abnormalStatuses.Add(status);
     }
 
 
@@ -197,7 +199,7 @@ public class CarBehavior : MonoBehaviour
             {
                 RunRandomPowerUpAnimation();
                 RunRandomPowerUpSound();
-                myPowerUp = ConstantsHelper.ALL_POWERUPS[1];//SpecialPowerBuilder.CreateRandomPower(this);
+                myPowerUp = ConstantsHelper.ALL_POWERUPS[0];//SpecialPowerBuilder.CreateRandomPower(this);
             }
             RemoveObject(otherObject);
         }
