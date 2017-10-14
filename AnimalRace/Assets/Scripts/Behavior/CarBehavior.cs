@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class CarBehavior : MonoBehaviour
 {
-    //[SerializeField]
+    [SerializeField]
     private PowerUpsHolderObject powerUps;
-    //[SerializeField]
+    [SerializeField]
     private Transform missileLauncher;
     private SpecialPower myPowerUp;
     private float currentSpeed;
@@ -25,10 +25,12 @@ public class CarBehavior : MonoBehaviour
     private List<AbnormalStatus> abnormalStatuses = new List<AbnormalStatus>();
 
     public PowerUpsHolderObject PowerUps { get { return powerUps; } }
-    public Transform MissileLauncher { get { return missileLauncher; } }
     public int Position { get; private set; }
     public string HorizontalMovement;
     public string VerticalMovement;
+    [SerializeField]
+    private string FIRE_AXIS;
+
     // Use this for initialization
     void Start()
     {
@@ -44,13 +46,14 @@ public class CarBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateCameraPosition();
         MoveForward();
         if (currentSpeed != 0)
             TurnSideways();
         //Jump();
         ReduceAbnormalStatusTime();
         FireSpecialPower();
-        GetComponent<Rigidbody>().AddForce(-transform.up * 100);
+        GetComponent<Rigidbody>().AddForce(-transform.up * 100); //Empujar hacia abajo para que no haga salito
         //RaycastHit hit = new RaycastHit();
         //if (Physics.Raycast(transform.position, -Vector3.up, out hit))
         //{
@@ -61,6 +64,16 @@ public class CarBehavior : MonoBehaviour
         //    }
         //}
 
+    }
+
+    private void UpdateCameraPosition()
+    {
+        var maxCameraDistance = 70;
+        var minCameraDistance = 60;
+        var differenceCamera = maxCameraDistance - minCameraDistance;
+        var percentage = currentSpeed / maxSpeed;
+        float fieldOfView = minCameraDistance + differenceCamera * percentage;
+        GetComponentInChildren<Camera>().fieldOfView = fieldOfView;
     }
 
     //void FixedUpdate()
@@ -84,7 +97,7 @@ public class CarBehavior : MonoBehaviour
             col.rigidbody.velocity = Vector3.zero;
             col.rigidbody.angularVelocity = Vector3.zero;
             col.rigidbody.AddForce(impulseForce*3, ForceMode.Impulse);
-            this.gameObject.GetComponent<Rigidbody>().AddForce(-impulseForce*3, ForceMode.Impulse);
+            gameObject.GetComponent<Rigidbody>().AddForce(-impulseForce*3, ForceMode.Impulse);
             //this.gameObject.GetComponent<Rigidbody>().useGravity = true;
         }
 
@@ -106,6 +119,11 @@ public class CarBehavior : MonoBehaviour
     private void TurnSideways()
     {
         transform.Rotate(transform.up * rotationSpeed * Time.deltaTime * Input.GetAxis(HorizontalMovement));
+    }
+
+    public void ChangeMaxSpeed(float multiplier)
+    {
+        maxSpeed *= multiplier;
     }
 
     private void MoveForward()
@@ -186,7 +204,7 @@ public class CarBehavior : MonoBehaviour
 
     private void FireSpecialPower()
     {
-        if (Input.GetAxisRaw(ConstantsHelper.POWERUP_AXIS) != 0)
+        if (Input.GetAxisRaw(FIRE_AXIS) != 0)
         {
             if (myPowerUp != null)
             {
@@ -206,7 +224,7 @@ public class CarBehavior : MonoBehaviour
             {
                 RunRandomPowerUpAnimation();
                 RunRandomPowerUpSound();
-                myPowerUp = SpecialPowerBuilder.CreateRandomPower(this);
+                myPowerUp = ConstantsHelper.ALL_POWERUPS[1];//SpecialPowerBuilder.CreateRandomPower(this);
             }
             RemoveObject(otherObject);
         }

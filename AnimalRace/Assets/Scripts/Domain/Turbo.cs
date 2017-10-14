@@ -3,8 +3,8 @@ using System;
 
 internal class Turbo : SpecialPower, AbnormalStatus
 {
-    private const float TURBO_MULTIPLIER = 2;
-    private const double TURBO_DURATION = 20;
+    private const float TURBO_MULTIPLIER = 4;
+    private const double TURBO_DURATION = 5;
     private double remainingDuration;
 
     public double Duration
@@ -19,13 +19,15 @@ internal class Turbo : SpecialPower, AbnormalStatus
     {
         remainingDuration = TURBO_DURATION;
         car.AddAbnormalStatus(this);
+        car.ChangeMaxSpeed(TURBO_MULTIPLIER);
         car.ChangeSpeed(TURBO_MULTIPLIER);
     }
 
     void AbnormalStatus.Deactivate(CarBehavior car)
     {
         car.RemoveAbnormalStatus(this);
-        car.ChangeSpeed(1/TURBO_MULTIPLIER);
+        car.ChangeMaxSpeed(1/TURBO_MULTIPLIER);
+        car.ChangeSpeed(-TURBO_MULTIPLIER);
     }
 
     void AbnormalStatus.ReduceTime(float deltaTime)
