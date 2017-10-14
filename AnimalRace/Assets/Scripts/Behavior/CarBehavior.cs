@@ -50,19 +50,42 @@ public class CarBehavior : MonoBehaviour
         //Jump();
         ReduceAbnormalStatusTime();
         FireSpecialPower();
+        GetComponent<Rigidbody>().AddForce(-transform.up * 100);
+        //RaycastHit hit = new RaycastHit();
+        //if (Physics.Raycast(transform.position, -Vector3.up, out hit))
+        //{
+        //    var distanceToGround = hit.distance;
+        //    if(distanceToGround > 0)
+        //    {
+        //        print(distanceToGround);
+        //    }
+        //}
+
     }
+
+    //void FixedUpdate()
+    //{
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(transform.position, -transform.up, 5, 5))
+    //    {
+    //        GetComponent<Rigidbody>().AddForce(transform.up * (10 / (hit.distance / 2)));
+    //    }
+    //}
 
     void OnCollisionEnter(Collision col)
     {
 
         if (col.gameObject.tag == "Car")
         {
+            //col.rigidbody.useGravity = false;
+            //this.gameObject.GetComponent<Rigidbody>().useGravity = false;
             Vector3 collForce = transform.forward * currentSpeed / 2;
             impulseForce.Set(collForce.x, 0, collForce.z);
             col.rigidbody.velocity = Vector3.zero;
             col.rigidbody.angularVelocity = Vector3.zero;
-            col.rigidbody.AddForce(impulseForce*2, ForceMode.Impulse);
-            this.gameObject.GetComponent<Rigidbody>().AddForce(-impulseForce*2, ForceMode.Impulse); 
+            col.rigidbody.AddForce(impulseForce*3, ForceMode.Impulse);
+            this.gameObject.GetComponent<Rigidbody>().AddForce(-impulseForce*3, ForceMode.Impulse);
+            //this.gameObject.GetComponent<Rigidbody>().useGravity = true;
         }
 
         //if(col.gameObject.tag == "Track")
