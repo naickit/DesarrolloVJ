@@ -20,6 +20,8 @@ public class CarBehavior : MonoBehaviour
     [SerializeField]
     private Vector3 impulseForce;
 
+    private Vector3 startingPosition;
+
     [SerializeField]
     private float rotationSpeed;
     private List<AbnormalStatus> abnormalStatuses = new List<AbnormalStatus>();
@@ -33,8 +35,8 @@ public class CarBehavior : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
-        if(maxSpeed == 0) maxSpeed = 20;
+        startingPosition = transform.position;
+        if (maxSpeed == 0) maxSpeed = 20;
         if (aceleration == 0) aceleration = 2;
         if (reverseMaxSpeed == 0) reverseMaxSpeed = -10;
         if (reverseMaxSpeed >0) reverseMaxSpeed *= -1;
@@ -48,7 +50,16 @@ public class CarBehavior : MonoBehaviour
             TurnSideways();
         ReduceAbnormalStatusTime();
         FireSpecialPower();
+        RespawnAfterEndlessFall();
+    }
 
+    private void RespawnAfterEndlessFall()
+    {
+        if(transform.position.y < 30)
+        {
+            transform.rotation = new Quaternion(0,0,0,0);
+            transform.position = startingPosition;
+        }
     }
 
     private void UpdateCameraPosition()
@@ -190,27 +201,31 @@ public class CarBehavior : MonoBehaviour
     {
         if (IsPowerUpBox(otherObject))
         {
-            RunPowerUpBoxCollisionAnimation();
-            RunPowerupBoxCollisionSound();
+            //TODO
+            //RunPowerUpBoxCollisionAnimation();
+            //RunPowerupBoxCollisionSound();
             if (CanHaveNewPowerUp())
             {
-                RunRandomPowerUpAnimation();
-                RunRandomPowerUpSound();
-                myPowerUp = ConstantsHelper.ALL_POWERUPS[0];//SpecialPowerBuilder.CreateRandomPower(this);
+                //TODO
+                //RunRandomPowerUpAnimation();
+                //RunRandomPowerUpSound();
+                myPowerUp = SpecialPowerBuilder.CreateRandomPower(this);
             }
             RemoveObject(otherObject);
         }
     }
 
-    private void RunPowerUpBoxCollisionAnimation()
-    {
-        return;
-    }
+    //TODO
+    //private void RunPowerUpBoxCollisionAnimation()
+    //{
+    //    return;
+    //}
 
-    private void RunPowerupBoxCollisionSound()
-    {
-        return;
-    }
+    //TODO
+    //private void RunPowerupBoxCollisionSound()
+    //{
+    //    return;
+    //}
 
     private bool CanHaveNewPowerUp()
     {
@@ -222,15 +237,17 @@ public class CarBehavior : MonoBehaviour
         return ConstantsHelper.POWERUP_BOX.Equals(otherObject.tag);
     }
 
-    private void RunRandomPowerUpAnimation()
-    {
-        return;
-    }
+    //TODO
+    //private void RunRandomPowerUpAnimation()
+    //{
+    //    return;
+    //}
 
-    private void RunRandomPowerUpSound()
-    {
-        return;
-    }
+    //TODO
+    //private void RunRandomPowerUpSound()
+    //{
+    //    return;
+    //}
 
     private void RemoveObject(Collider otherObject)
     {
