@@ -25,7 +25,6 @@ public class CarBehavior : MonoBehaviour
     private List<AbnormalStatus> abnormalStatuses = new List<AbnormalStatus>();
 
     public PowerUpsHolderObject PowerUps { get { return powerUps; } }
-    public int Position { get; private set; }
     public string HorizontalMovement;
     public string VerticalMovement;
     [SerializeField]
@@ -34,13 +33,11 @@ public class CarBehavior : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Position = 1;
-        currentSpeed = 0;
-        maxSpeed = 20;
-        aceleration = 2;
-        reverseMaxSpeed = -10;
-        impulseForce.Set(0, 0, 0);
-
+        
+        if(maxSpeed == 0) maxSpeed = 20;
+        if (aceleration == 0) aceleration = 2;
+        if (reverseMaxSpeed == 0) reverseMaxSpeed = -10;
+        if (reverseMaxSpeed >0) reverseMaxSpeed *= -1;
     }
 
     // Update is called once per frame

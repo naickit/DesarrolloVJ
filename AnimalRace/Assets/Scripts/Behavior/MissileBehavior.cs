@@ -6,7 +6,6 @@ public class MissileBehavior : MonoBehaviour
 {
     [SerializeField]
     private float speed;
-    private MissileCollisionStatus collisionLogic = new MissileCollisionStatus();
     // Use this for initialization
     void Start()
     {
