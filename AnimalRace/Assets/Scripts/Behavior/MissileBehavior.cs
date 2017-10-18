@@ -29,6 +29,5 @@ public class MissileBehavior : MonoBehaviour
             car.AddAbnormalStatus(status);
         }
         Destroy(gameObject);
-
     }
 }

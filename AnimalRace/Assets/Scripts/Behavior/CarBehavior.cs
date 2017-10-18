@@ -193,27 +193,29 @@ public class CarBehavior : MonoBehaviour
     {
         if (IsPowerUpBox(otherObject))
         {
-            RunPowerUpBoxCollisionAnimation();
-            RunPowerupBoxCollisionSound();
+            //TODO
+            //RunPowerUpBoxCollisionAnimation();
+            //RunPowerupBoxCollisionSound();
             if (CanHaveNewPowerUp())
             {
-                RunRandomPowerUpAnimation();
-                RunRandomPowerUpSound();
-                myPowerUp = ConstantsHelper.ALL_POWERUPS[0];//SpecialPowerBuilder.CreateRandomPower(this);
+                //TODO
+                //RunRandomPowerUpAnimation();
+                //RunRandomPowerUpSound();
+                myPowerUp = SpecialPowerBuilder.CreateRandomPower(this);
             }
             RemoveObject(otherObject);
         }
     }
+    //TODO
+    //private void RunPowerUpBoxCollisionAnimation()
+    //{
+    //    return;
+    //}
 
-    private void RunPowerUpBoxCollisionAnimation()
-    {
-        return;
-    }
-
-    private void RunPowerupBoxCollisionSound()
-    {
-        return;
-    }
+    //private void RunPowerupBoxCollisionSound()
+    //{
+    //    return;
+    //}
 
     private bool CanHaveNewPowerUp()
     {
@@ -224,16 +226,16 @@ public class CarBehavior : MonoBehaviour
     {
         return ConstantsHelper.POWERUP_BOX.Equals(otherObject.tag);
     }
+    //TODO
+    //private void RunRandomPowerUpAnimation()
+    //{
+    //    return;
+    //}
 
-    private void RunRandomPowerUpAnimation()
-    {
-        return;
-    }
-
-    private void RunRandomPowerUpSound()
-    {
-        return;
-    }
+    //private void RunRandomPowerUpSound()
+    //{
+    //    return;
+    //}
 
     private void RemoveObject(Collider otherObject)
     {
