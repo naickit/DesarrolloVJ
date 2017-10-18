@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 950, y: 542}
+  m_MinSize: {x: 950, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -42,8 +42,8 @@ MonoBehaviour:
     y: 30
     width: 1366
     height: 675
-  m_MinSize: {x: 679, y: 492}
-  m_MaxSize: {x: 14002, y: 14042}
+  m_MinSize: {x: 683, y: 492}
+  m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
   controlID: 9
 --- !u!114 &3
@@ -90,8 +90,8 @@ MonoBehaviour:
     y: 0
     width: 292
     height: 387
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -207,7 +207,7 @@ MonoBehaviour:
     y: 0
     width: 968
     height: 675
-  m_MinSize: {x: 404, y: 492}
+  m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
   controlID: 10
@@ -231,8 +231,8 @@ MonoBehaviour:
     y: 0
     width: 968
     height: 387
-  m_MinSize: {x: 404, y: 221}
-  m_MaxSize: {x: 8004, y: 4021}
+  m_MinSize: {x: 406, y: 221}
+  m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
   controlID: 11
 --- !u!114 &11
@@ -329,19 +329,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/Scripts/Behavior
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Scripts/Behavior
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Nico\Dropbox\Fuckultad\Desarrollo de V. 1\Obligatorio\nuevo\AnimalRace
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 58}
-    m_SelectedIDs: d4240000
-    m_LastClickedID: 9428
-    m_ExpandedIDs: 00000000d4240000002500005225000054250000f8260000fa260000fc26000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 74}
+    m_SelectedIDs: ea250000
+    m_LastClickedID: 9706
+    m_ExpandedIDs: 00000000d4240000002500006e25000070250000482700004a2700004c27000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -369,7 +369,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000d4240000002500005225000054250000f8260000fa260000fc260000
+    m_ExpandedIDs: 00000000d4240000002500006e25000070250000482700004a2700004c270000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -487,7 +487,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: dafbffff
     m_LastClickedID: -1062
-    m_ExpandedIDs: dcfbffff00000000f4250000022600002c2600003626000058260000
+    m_ExpandedIDs: dcfbffff000000002226000080260000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -542,9 +542,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 32.188793, y: 73.10927, z: -85.46811}
+    m_Target: {x: 24.550816, y: 74.36576, z: -71.853935}
     speed: 2
-    m_Value: {x: 32.188793, y: 73.10927, z: -85.46811}
+    m_Value: {x: 24.550816, y: 74.36576, z: -71.853935}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -567,13 +567,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.064981565, y: -0.17096123, z: 0.011300367, w: 0.9830672}
+    m_Target: {x: 0.23153293, y: 0.1614019, z: -0.038986094, w: 0.9585524}
     speed: 2
-    m_Value: {x: 0.064981595, y: -0.1709613, z: 0.011300372, w: 0.98306763}
+    m_Value: {x: 0.23153284, y: 0.16140184, z: -0.03898608, w: 0.95855206}
   m_Size:
-    m_Target: 7.812351
+    m_Target: 9.73561
     speed: 2
-    m_Value: 7.812351
+    m_Value: 9.73561
   m_Ortho:
     m_Target: 0
     speed: 2
