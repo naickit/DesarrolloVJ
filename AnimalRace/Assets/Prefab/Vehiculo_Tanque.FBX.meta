@@ -1,41 +1,37 @@
 fileFormatVersion: 2
-guid: 388621a224a5ad146be2f7ddb95d405b
-timeCreated: 1508355705
+guid: 5d4476745fd67a14989d11780b9203bb
+timeCreated: 1508370480
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Box009
-    100002: Box014
-    100004: Box015
-    100006: Box016
-    100008: Box017
+    100000: Box001
+    100002: Box002
+    100004: Object001
+    100006: Sphere001
+    100008: Sphere002
     100010: //RootNode
-    400000: Box009
-    400002: Box014
-    400004: Box015
-    400006: Box016
-    400008: Box017
+    400000: Box001
+    400002: Box002
+    400004: Object001
+    400006: Sphere001
+    400008: Sphere002
     400010: //RootNode
-    2300000: Box009
-    2300002: Box014
-    2300004: Box015
-    2300006: Box016
-    2300008: Box017
-    2300010: //RootNode
-    3300000: Box009
-    3300002: Box014
-    3300004: Box015
-    3300006: Box016
-    3300008: Box017
-    3300010: //RootNode
-    4300000: Box001
-    4300002: Box014
-    4300004: Box017
-    4300006: Box015
-    4300008: Box016
-    4300010: Box009
-    7400000: Take 001
+    2300000: Box001
+    2300002: Box002
+    2300004: Object001
+    2300006: Sphere001
+    2300008: Sphere002
+    3300000: Box001
+    3300002: Box002
+    3300004: Object001
+    3300006: Sphere001
+    3300008: Sphere002
+    4300000: Object001
+    4300002: Box001
+    4300004: Sphere002
+    4300006: Box002
+    4300008: Sphere001
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -59,47 +55,7 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Take 001
-      takeName: Take 001
-      firstFrame: 0
-      lastFrame: 90
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Box009
-        weight: 1
-      - path: Box014
-        weight: 1
-      - path: Box015
-        weight: 1
-      - path: Box016
-        weight: 1
-      - path: Box017
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
