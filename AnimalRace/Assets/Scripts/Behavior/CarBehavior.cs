@@ -214,7 +214,7 @@ public class CarBehavior : MonoBehaviour
             RemoveObject(otherObject);
         }
     }
-
+    
     //TODO
     //private void RunPowerUpBoxCollisionAnimation()
     //{
@@ -236,14 +236,11 @@ public class CarBehavior : MonoBehaviour
     {
         return ConstantsHelper.POWERUP_BOX.Equals(otherObject.tag);
     }
-
     //TODO
     //private void RunRandomPowerUpAnimation()
     //{
     //    return;
     //}
-
-    //TODO
     //private void RunRandomPowerUpSound()
     //{
     //    return;
