@@ -20,6 +20,9 @@ public class CarBehavior : MonoBehaviour
     [SerializeField]
     private Vector3 impulseForce;
 
+    private int lapCounter;
+    private bool[] activeCheckpoints;
+
     private Vector3 startingPosition;
 
     [SerializeField]
@@ -40,6 +43,8 @@ public class CarBehavior : MonoBehaviour
         if (aceleration == 0) aceleration = 2;
         if (reverseMaxSpeed == 0) reverseMaxSpeed = -10;
         if (reverseMaxSpeed >0) reverseMaxSpeed *= -1;
+        lapCounter = 0;
+        activeCheckpoints = new bool[] { false, false, false };
     }
 
     // Update is called once per frame
@@ -99,7 +104,17 @@ public class CarBehavior : MonoBehaviour
 
     private void TurnSideways()
     {
-        transform.Rotate(transform.up * rotationSpeed * Time.deltaTime * Input.GetAxis(HorizontalMovement));
+        if (currentSpeed > 0)
+        {
+            transform.Rotate(transform.up * rotationSpeed * Time.deltaTime * Input.GetAxis(HorizontalMovement));
+
+        }
+        else
+        {
+            transform.Rotate(transform.up * rotationSpeed * Time.deltaTime * -Input.GetAxis(HorizontalMovement));
+
+        }
+
     }
 
     public void ChangeMaxSpeed(float multiplier)
@@ -213,8 +228,34 @@ public class CarBehavior : MonoBehaviour
             }
             RemoveObject(otherObject);
         }
+        if (IsCheckPoint(otherObject))
+        {
+            string checkPointNumber = otherObject.tag.Split('_')[1];
+            switch (checkPointNumber)
+            {
+                case "1":
+                    if (!activeCheckpoints[1] && !activeCheckpoints[2])
+                    {
+                        activeCheckpoints[0] = true;
+                    }
+                    break;
+                case "2":
+                    if (activeCheckpoints[0] && !activeCheckpoints[2])
+                    {
+                        activeCheckpoints[1] = true;
+                    }
+                    break;
+                case "3":
+                    if (activeCheckpoints[0] && activeCheckpoints[1])
+                    {
+                        activeCheckpoints[2] = true;
+                        AddLap();
+                    }
+                    break;
+            }
+        }
     }
-    
+
     //TODO
     //private void RunPowerUpBoxCollisionAnimation()
     //{
@@ -232,15 +273,46 @@ public class CarBehavior : MonoBehaviour
         return myPowerUp == null;
     }
 
+    private void AddLap()
+    {
+        lapCounter++;
+        ResetCheckPointList();
+        CheckIfRaceIsOver();
+
+    }
+
+    private void ResetCheckPointList()
+    {
+        for(int i = 0; i < activeCheckpoints.Length; i++)
+        {
+            activeCheckpoints[i] = false;
+        }
+    }
+
+    private void CheckIfRaceIsOver()
+    {
+        if(lapCounter == 2)
+        {
+            print("GANADOR!!!!!!");
+        }
+    }
+
     private bool IsPowerUpBox(Collider otherObject)
     {
         return ConstantsHelper.POWERUP_BOX.Equals(otherObject.tag);
+    }
+
+    private bool IsCheckPoint(Collider otherObject)
+    {
+        return otherObject.tag.Contains("CheckPoint");
     }
     //TODO
     //private void RunRandomPowerUpAnimation()
     //{
     //    return;
     //}
+
+    //TODO
     //private void RunRandomPowerUpSound()
     //{
     //    return;
@@ -248,7 +320,17 @@ public class CarBehavior : MonoBehaviour
 
     private void RemoveObject(Collider otherObject)
     {
-        Destroy(otherObject.gameObject);
+        //Destroy(otherObject.gameObject);
+        StartCoroutine(ShowBox(otherObject.gameObject));
+        otherObject.gameObject.SetActive(false);
+
+    }
+
+    IEnumerator ShowBox(GameObject gameObj)
+    {
+        yield return new WaitForSeconds(5);
+        gameObj.SetActive(true);
+
     }
     #endregion
 }
